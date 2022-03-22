@@ -1,7 +1,15 @@
-#include<stdio.h>
-#include<string>
+#include <stdio.h>
+#include <string>
 using namespace std;
 #include <map>
 #include <vector>
 
-std::string* getReadingsFromRanges(std::vector<int> inputRange);
+typedef std::vector<std::string> cacheRages;
+
+class FindRangeReadings
+{
+public:
+    cacheRages m_cacheRange;
+    void cacheReadingsFromRanges(std::vector<int> inputRange);
+    void printRangeandReadings();
+};

@@ -5,26 +5,33 @@
 #include <map>
 #include <bits/stdc++.h>
 
+FindRangeReadings m_cacheRangeReadings;
+
 TEST_CASE("test readings from ranges")
 {
-    std::string* out = getReadingsFromRanges({4, 5});
-
-    std::cout << "charging samples" << std::endl;
-    for (int i = 0; i < 1; i++)
-    {
-        REQUIRE(out[i] == "4-5,2");
-    }
+    m_cacheRangeReadings.cacheReadingsFromRanges({4, 5});
+    m_cacheRangeReadings.printRangeandReadings();
+    REQUIRE(m_cacheRangeReadings.m_cacheRange[0] == "4-5,2");
 }
 
-// TEST_CASE("test readings from different range")
-// {
-//     std::string* testOutMap = getReadingsFromRanges({10, 11, 12, 13});
+TEST_CASE("test readings from continuous range")
+{
+    m_cacheRangeReadings.cacheReadingsFromRanges({10, 11, 12, 13});
+    m_cacheRangeReadings.printRangeandReadings();
+    REQUIRE(m_cacheRangeReadings.m_cacheRange[1] == "10-13,4");
+}
 
-//     std::map<std::string, int>::iterator it;
-//     std::cout << "charging samples from diff range" << std::endl;
-//     for (it = testOutMap.begin(); it != testOutMap.end(); it++)
-//     {
-//         REQUIRE(it->first == "10-13");
-//         REQUIRE(it->second == 4);
-//     }
-// }
+TEST_CASE("test readings from different range")
+{
+    m_cacheRangeReadings.cacheReadingsFromRanges({3,3,4,5,10,11,12});
+    m_cacheRangeReadings.printRangeandReadings();
+    REQUIRE(m_cacheRangeReadings.m_cacheRange[2] == "3-5,4");
+    REQUIRE(m_cacheRangeReadings.m_cacheRange[3] == "10-12,3");
+}
+
+TEST_CASE("test readings for multiple same readings")
+{
+    m_cacheRangeReadings.cacheReadingsFromRanges({1,2,2});
+    m_cacheRangeReadings.printRangeandReadings();
+    REQUIRE(m_cacheRangeReadings.m_cacheRange[4] == "1-2,3");
+}

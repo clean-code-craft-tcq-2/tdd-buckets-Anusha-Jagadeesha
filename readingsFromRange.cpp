@@ -6,42 +6,35 @@
 #include <cstdio>
 
 using namespace std;
-std::string storeInMap[5];
 
-std::string* getReadingsFromRanges(std::vector<int> inputRange)
+void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
 {
-    int readings = 0;
-    int previousValue = inputRange[0];
-    int startRangeValue;
-
     sort(inputRange.begin(), inputRange.end());
-
-    for (int i = 0; inputRange.size() > i; i++)
+    
+    int totalReadings = 0;
+    while (inputRange.size() > totalReadings)
     {
-        if (((previousValue == inputRange[i]) || ((previousValue + 1) == inputRange[i])) && (i != ((inputRange.size())-1)))
+        int element = inputRange[totalReadings];
+        int startRangeValue = element;
+        int occurence = 0;
+        int rangeReadings = 0;
+        while (occurence = std::count(inputRange.begin(), inputRange.end(), element))
         {
-            ++readings;
-            previousValue = inputRange[i];
-            if (readings == 1)
-            {
-                startRangeValue = inputRange[i];
-            }
+            rangeReadings += occurence;
+            ++element;
         }
-        else
-        {
-            if(i == ((inputRange.size())-1))
-            {
-                ++readings;
-                previousValue = inputRange[i];
-            }
-            for(int j = 0; j < inputRange.size(); j++)
-            {
-            storeInMap[i] = to_string(startRangeValue) + "-" + to_string(previousValue) + "," + to_string(readings);
-            }
-            readings = 1;
-            previousValue = inputRange[i];
-            startRangeValue = inputRange[i];
-        }
+        totalReadings += rangeReadings;
+        std::string rangeWithReading = to_string(startRangeValue) + "-" + to_string(element - 1) + "," + to_string(rangeReadings);
+        m_cacheRange.push_back(rangeWithReading);
+        rangeReadings = 0;
     }
-    return storeInMap;
+}
+
+void FindRangeReadings::printRangeandReadings()
+{
+    std::cout << "Range , Readings" << endl;
+    for (cacheRages::iterator itr = m_cacheRange.begin(); itr != m_cacheRange.end(); itr++)
+    {
+        std::cout << *itr <<endl;
+    }
 }
