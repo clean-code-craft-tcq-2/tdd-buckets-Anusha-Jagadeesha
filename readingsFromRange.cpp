@@ -4,15 +4,18 @@
 #include <string>
 #include <algorithm>
 #include <cstdio>
+#include <cmath>
+#include <cfenv>
+#include <climits>
 
 using namespace std;
 
 void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
 {
-    sort(inputRange.begin(), inputRange.end());
+    bool isInputRangeIsWithinRange = sortInputRange(inputRange);
     
     int totalReadings = 0;
-    while (inputRange.size() > totalReadings)
+    while ((inputRange.size() > totalReadings) && (isInputRangeIsWithinRange))
     {
         int element = inputRange[totalReadings];
         int startRangeValue = element;
@@ -20,7 +23,10 @@ void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
         int rangeReadings = 0;
         while (occurence = std::count(inputRange.begin(), inputRange.end(), element))
         {
+            int temp_a2d = 0;
             rangeReadings += occurence;
+            temp_a2d = convertToAmps(element);
+            m_currentSamplesAfterA2D.push_back(temp_a2d);
             ++element;
         }
         totalReadings += rangeReadings;
@@ -28,6 +34,25 @@ void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
         m_cacheRange.push_back(rangeWithReading);
         rangeReadings = 0;
     }
+}
+
+bool FindRangeReadings::sortInputRange(std::vector<int> inputRange)
+{
+    sort(inputRange.begin(), inputRange.end());
+    for(int i = 0; i < inputRange.size(); i++)
+    {
+        if((inputRange[i] < 0) && (inputRange[i] > 4095))
+        {
+            cout << "invalid range" << endl;
+            return false;
+        }
+        return true;
+    }
+}
+int FindRangeReadings::convertToAmps(int currentElements)
+{
+    float ConvertToAmp = (float( 10 * currentElements) / 4094);
+    return round(ConvertToAmp);
 }
 
 void FindRangeReadings::printRangeandReadings()
