@@ -31,7 +31,7 @@ void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
         }
         totalReadings += rangeReadings;
         std::string rangeWithReading = to_string(startRangeValue) + "-" + to_string(element - 1) + "," + to_string(rangeReadings);
-        m_cacheRange.push_back(rangeWithReading);
+        m_storeRange.push_back(rangeWithReading);
         rangeReadings = 0;
     }
 }
@@ -41,7 +41,7 @@ bool FindRangeReadings::sortInputRange(std::vector<int> inputRange)
     sort(inputRange.begin(), inputRange.end());
     for(int i = 0; i < inputRange.size(); i++)
     {
-        if((inputRange[i] < 0) && (inputRange[i] > 4095))
+        if((inputRange[i] < 0) || (inputRange[i] > 4094))
         {
             cout << "invalid range" << endl;
             return false;
@@ -58,7 +58,7 @@ int FindRangeReadings::convertToAmps(int currentElements)
 void FindRangeReadings::printRangeandReadings()
 {
     std::cout << "Range , Readings" << endl;
-    for (cacheRages::iterator itr = m_cacheRange.begin(); itr != m_cacheRange.end(); itr++)
+    for (storeRages::iterator itr = m_storeRange.begin(); itr != m_storeRange.end(); itr++)
     {
         std::cout << *itr <<endl;
     }

@@ -4,13 +4,13 @@ using namespace std;
 #include <map>
 #include <vector>
 
-typedef std::vector<std::string> cacheRages;
+typedef std::vector<std::string> storeRages;
 typedef std::vector<int> storeConvertedCurrentSamples;
 
 class FindRangeReadings
 {
 public:
-    cacheRages m_cacheRange;
+    storeRages m_storeRange;
     storeConvertedCurrentSamples m_currentSamplesAfterA2D;
     void cacheReadingsFromRanges(std::vector<int> inputRange);
     void printRangeandReadings();
