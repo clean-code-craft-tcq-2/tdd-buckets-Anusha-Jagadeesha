@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
+void FindRangeReadings::findandStoreReadingsFromRanges(std::vector<int> inputRange)
 {
     bool isInputRangeIsWithinRange = sortInputRange(inputRange);
     
@@ -36,7 +36,7 @@ void FindRangeReadings::cacheReadingsFromRanges(std::vector<int> inputRange)
     }
 }
 
-bool FindRangeReadings::sortInputRange(std::vector<int> inputRange)
+bool sortInputRange(std::vector<int> inputRange)
 {
     sort(inputRange.begin(), inputRange.end());
     for(int i = 0; i < inputRange.size(); i++)
@@ -49,7 +49,8 @@ bool FindRangeReadings::sortInputRange(std::vector<int> inputRange)
         return true;
     }
 }
-int FindRangeReadings::convertToAmps(int currentElements)
+
+int convertToAmps(int currentElements)
 {
     float ConvertToAmp = (float( 10 * currentElements) / 4094);
     return round(ConvertToAmp);
@@ -58,7 +59,7 @@ int FindRangeReadings::convertToAmps(int currentElements)
 void FindRangeReadings::printRangeandReadings()
 {
     std::cout << "Range , Readings" << endl;
-    for (storeRages::iterator itr = m_storeRange.begin(); itr != m_storeRange.end(); itr++)
+    for (storeRanges::iterator itr = m_storeRange.begin(); itr != m_storeRange.end(); itr++)
     {
         std::cout << *itr <<endl;
     }

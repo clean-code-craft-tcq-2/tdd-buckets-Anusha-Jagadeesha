@@ -4,16 +4,17 @@ using namespace std;
 #include <map>
 #include <vector>
 
-typedef std::vector<std::string> storeRages;
+typedef std::vector<std::string> storeRanges;
 typedef std::vector<int> storeConvertedCurrentSamples;
 
 class FindRangeReadings
 {
 public:
-    storeRages m_storeRange;
+    storeRanges m_storeRange;
     storeConvertedCurrentSamples m_currentSamplesAfterA2D;
-    void cacheReadingsFromRanges(std::vector<int> inputRange);
+    void findandStoreReadingsFromRanges(std::vector<int> inputRange);
     void printRangeandReadings();
+};
+
     int convertToAmps(int currentElements);
     bool sortInputRange(std::vector<int> inputRange);
-};
